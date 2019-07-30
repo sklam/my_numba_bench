@@ -17,7 +17,7 @@ $ pytest
 
 Test groups:
 
-* `compile`:
+* `compiler`:
     Bencmark of the compiler
 * `nrt`:
     Benchmark testing the numba runtime
