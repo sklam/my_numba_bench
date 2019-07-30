@@ -16,6 +16,7 @@ STATE_NOTPRIME = 2
 def get_sieve_prime():
     """Returns a implementation of the sieve_prime to force recompilation.
     """
+
     @cuda.jit
     def sieve_prime(num_states, base_prime):
         thread = cuda.grid(1)
@@ -27,6 +28,7 @@ def get_sieve_prime():
             if state == STATE_UNSET:
                 if x % base_prime == 0:  # is divisible?
                     num_states[i] = STATE_NOTPRIME
+
     return sieve_prime
 
 
@@ -64,16 +66,41 @@ def run(n, verbose=False, sieve_prime=None):
     return primes
 
 
-@pytest.mark.parametrize('n', [500, 1000, 5000])
+@pytest.mark.parametrize("n", [500, 1000, 5000])
 def test_execute(benchmark, n):
     """Measure execution time prime sieve
     """
     expected = [
-        2, 3, 5, 7, 11, 13, 17, 19,
-        23, 29, 31, 37, 41, 43, 47,
-        53, 59, 61, 67, 71, 73, 79,
-        83, 89, 97, 101, 103, 107,
-        109, 113,
+        2,
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        41,
+        43,
+        47,
+        53,
+        59,
+        61,
+        67,
+        71,
+        73,
+        79,
+        83,
+        89,
+        97,
+        101,
+        103,
+        107,
+        109,
+        113,
     ]
     # warm up and verify
     sieve_prime = get_sieve_prime()
@@ -87,6 +114,7 @@ def test_compilation(benchmark):
     """Measure compile time for prime_sieve kernel
     """
     sig = (types.uint8[::1], types.intp)
+
     def compile():
         sieve_prime = get_sieve_prime()
         sieve_prime.compile(sig)
@@ -94,8 +122,6 @@ def test_compilation(benchmark):
         sieve_prime.inspect_asm(sig)
 
     benchmark(compile)
-
-
 
 
 if __name__ == "__main__":
