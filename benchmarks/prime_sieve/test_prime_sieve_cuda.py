@@ -67,7 +67,7 @@ def run(n, verbose=False, sieve_prime=None):
 
 
 @pytest.mark.parametrize("n", [500, 1000, 5000])
-def test_execute(benchmark, n):
+def test_prime_sieve_cuda_execute(benchmark, n):
     """Measure execution time prime sieve
     """
     expected = [
@@ -110,7 +110,7 @@ def test_execute(benchmark, n):
     benchmark(run, n=n, sieve_prime=sieve_prime)
 
 
-def test_compilation(benchmark):
+def test_prime_sieve_cuda_compilation(benchmark):
     """Measure compile time for prime_sieve kernel
     """
     sig = (types.uint8[::1], types.intp)
