@@ -1,5 +1,5 @@
 """
-Benchmark for array allocation
+Benchmark for array allocation.
 """
 
 import pytest
@@ -9,6 +9,8 @@ from numba import njit
 
 @njit
 def allocate_many(output):
+    """Allocate many small arrays.
+    """
     for i in range(output.size):
         a = np.arange(i % 10)
         output[i] = a.sum()
