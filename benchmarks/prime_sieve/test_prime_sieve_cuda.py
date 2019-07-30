@@ -66,6 +66,7 @@ def run(n, verbose=False, sieve_prime=None):
     return primes
 
 
+@pytest.mark.cuda
 @pytest.mark.parametrize("n", [500, 1000, 5000])
 def test_prime_sieve_cuda_execute(benchmark, n):
     """Measure execution time prime sieve
@@ -110,6 +111,8 @@ def test_prime_sieve_cuda_execute(benchmark, n):
     benchmark(run, n=n, sieve_prime=sieve_prime)
 
 
+@pytest.mark.cuda
+@pytest.mark.compiler
 def test_prime_sieve_cuda_compilation(benchmark):
     """Measure compile time for prime_sieve kernel
     """

@@ -17,6 +17,7 @@ def allocate_many(output):
     return output
 
 
+@pytest.mark.nrt
 @pytest.mark.parametrize("n", [1000, 100000])
 def test_array_allocation(benchmark, n):
     # warm up
